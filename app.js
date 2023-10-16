@@ -1,42 +1,63 @@
-function rollDice() {
-    var rollNumberP1 = Math.floor(Math.random() * 6) + 1,
-        rollNumberP2 = Math.floor(Math.random() * 6) + 1;
+var rollingDice1 = false,
+    rollingDice2 = false
+var rolledDice1 = false,
+    rolledDice2 = false
+var randNum1 = randNum2 = 0
 
-    if (rollNumberP1 == 1) {
-        document.querySelector(".img1").setAttribute("src", "./images/dice1.png");
-    } else if (rollNumberP1 == 2) {
-        document.querySelector(".img1").setAttribute("src", "./images/dice2.png");
-    } else if (rollNumberP1 == 3) {
-        document.querySelector(".img1").setAttribute("src", "./images/dice3.png");
-    } else if (rollNumberP1 == 4) {
-        document.querySelector(".img1").setAttribute("src", "./images/dice4.png");
-    } else if (rollNumberP1 == 5) {
-        document.querySelector(".img1").setAttribute("src", "./images/dice5.png");
-    } else {
-        document.querySelector(".img1").setAttribute("src", "./images/dice6.png");
-    }
-
-    if (rollNumberP2 == 1) {
-        document.querySelector(".img2").setAttribute("src", "./images/dice1.png");
-    } else if (rollNumberP2 == 2) {
-        document.querySelector(".img2").setAttribute("src", "./images/dice2.png");
-    } else if (rollNumberP2 == 3) {
-        document.querySelector(".img2").setAttribute("src", "./images/dice3.png");
-    } else if (rollNumberP2 == 4) {
-        document.querySelector(".img2").setAttribute("src", "./images/dice4.png");
-    } else if (rollNumberP2 == 5) {
-        document.querySelector(".img2").setAttribute("src", "./images/dice5.png");
-    } else {
-        document.querySelector(".img2").setAttribute("src", "./images/dice6.png");
-    }
-
-    if (rollNumberP1 > rollNumberP2) {
-        document.querySelector("h1").textContent = "Player 1 Wins!";
-    } else if (rollNumberP1 < rollNumberP2) {
-        document.querySelector("h1").textContent = "Player 2 Wins!";
-    } else {
-        document.querySelector("h1").textContent = "Draw!";
+function rollDice1() {
+    if (rollingDice1 == false) {
+        var counter = 0
+        $(".dice1 p").text("Player 1 Rolled...")
+        $("h1").text("Rolling...")
+        var stopInterval = setInterval(function () {
+            randNum1 = Math.floor(Math.random() * 6) + 1
+            $(".img1").attr('src', 'images/dice' + randNum1 + '.png')
+            counter++
+            rollingDice1 = true
+            if (counter == 20) {
+                clearInterval(stopInterval)
+                $(".dice1 p").text("Player 1 rolled " + randNum1 + " !")
+                rollingDice1 = false
+                rolledDice1 = true
+                checkWin()
+            }
+        }, 100)
     }
 }
 
-document.body.addEventListener('click', rollDice, true);
+$(".dice1 img").on('click', rollDice1);
+
+function rollDice2() {
+    if (rollingDice2 == false) {
+        var counter = 0
+        $(".dice2 p").text("Player 2 Rolled...")
+        $("h1").text("Rolling...")
+        var stopInterval = setInterval(function () {
+            randNum2 = Math.floor(Math.random() * 6) + 1
+            $(".img2").attr('src', 'images/dice' + randNum2 + '.png')
+            counter++
+            rollingDice2 = true
+            if (counter == 20) {
+                clearInterval(stopInterval)
+                $(".dice2 p").text("Player 2 rolled " + randNum2 + " !")
+                rollingDice2 = false
+                rolledDice2 = true
+                checkWin()
+            }
+        }, 100)
+    }
+}
+
+$(".dice2 img").on('click', rollDice2);
+
+function checkWin() {
+    if (rolledDice1 && rolledDice2) {
+        rolledDice1 = rolledDice2 = false
+        if (randNum1 > randNum2)
+            $('h1').text('Player 1 Wins !')
+        else if (randNum2 > randNum1)
+            $('h1').text('Player 2 Wins !')
+        else
+            $('h1').text('Draw !')
+    }
+}
