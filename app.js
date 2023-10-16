@@ -7,7 +7,7 @@ var randNum1 = randNum2 = 0
 function rollDice1() {
     if (rollingDice1 == false) {
         var counter = 0
-        $(".dice1 p").text("Player 1 Rolled...")
+        $(".dice1 p").text("Player 1 rolled...")
         $("h1").text("Rolling...")
         var stopInterval = setInterval(function () {
             randNum1 = Math.floor(Math.random() * 6) + 1
@@ -30,7 +30,7 @@ $(".dice1 img").on('click', rollDice1);
 function rollDice2() {
     if (rollingDice2 == false) {
         var counter = 0
-        $(".dice2 p").text("Player 2 Rolled...")
+        $(".dice2 p").text("Player 2 rolled...")
         $("h1").text("Rolling...")
         var stopInterval = setInterval(function () {
             randNum2 = Math.floor(Math.random() * 6) + 1
