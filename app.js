@@ -8,6 +8,8 @@ function rollDice1() {
     if (rollingDice1 == false) {
         var counter = 0
         $(".dice1 p").text("Player 1 rolled...")
+        if (!rolledDice2 && !rollingDice2)
+            $(".dice2 p").text("Player 2")
         $("h1").text("Rolling...")
         var stopInterval = setInterval(function () {
             randNum1 = Math.floor(Math.random() * 6) + 1
@@ -31,6 +33,8 @@ function rollDice2() {
     if (rollingDice2 == false) {
         var counter = 0
         $(".dice2 p").text("Player 2 rolled...")
+        if (!rolledDice1 && !rollingDice1)
+            $(".dice1 p").text("Player 1")
         $("h1").text("Rolling...")
         var stopInterval = setInterval(function () {
             randNum2 = Math.floor(Math.random() * 6) + 1
@@ -52,12 +56,16 @@ $(".dice2 img").on('click', rollDice2);
 
 function checkWin() {
     if (rolledDice1 && rolledDice2) {
-        rolledDice1 = rolledDice2 = false
-        if (randNum1 > randNum2)
+        if (randNum1 > randNum2) {
+            rolledDice1 = rolledDice2 = false
             $('h1').text('Player 1 Wins !')
-        else if (randNum2 > randNum1)
+        } else if (randNum2 > randNum1) {
+            rolledDice1 = rolledDice2 = false
             $('h1').text('Player 2 Wins !')
-        else
+        } else {
+            rolledDice1 = rolledDice2 = false
             $('h1').text('Draw !')
+        }
+
     }
 }
